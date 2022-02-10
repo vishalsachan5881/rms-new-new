@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.secret_key = "super key"
 app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = "root"
+app.config["MYSQL_PASSWORD"] = "1234"
 app.config["MYSQL_DB"] = "RMS"
 
 
@@ -144,14 +144,15 @@ def con():
         Author_ID = conDetails["Author_ID"]
         Conference_Title = conDetails["Conference_Title"]
         Name_of_Journal = conDetails["Name_of_Journal"]
+        Conference_ID = conDetails["Conference_ID"]
         Date = conDetails["Date"]
         Publisher = conDetails["Publisher"]
         Page_No = conDetails["Page_No"]
         Year = conDetails["Year"]
         print("hayu")
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO CONFERENCE (Citation,Author_ID,Conference_Title,Name_of_Journal,Date,Publisher,Page_No,Year) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",
-                    (Citation, Author_ID, Conference_Title, Name_of_Journal, Date, Publisher, Page_No, Year))
+        cur.execute("INSERT INTO CONFERENCE (Citation,Author_ID,Conference_Title,Name_of_Journal,Conference_ID,Date,Publisher,Page_No,Year) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                    (Citation, Author_ID, Conference_Title, Name_of_Journal, Conference_ID, Date, Publisher, Page_No, Year))
         mysql.connection.commit()
         cur.close()
         return redirect(url_for('static', filename='profile.html'))
@@ -204,7 +205,7 @@ def jou():
                     (Citation, Author_ID, Name_of_Journal, Date, Publisher, Volume, Year))
         mysql.connection.commit()
         cur.close()
-        return redirect(url_for('static', filename='project.html'))
+        return redirect(url_for('static', filename='profile.html'))
         # return redirect ('{{url_for('static',filename = 'project.html')}}')
 
     # print("hiiiiiiiiiiiiiiii")
@@ -230,42 +231,118 @@ def profilebutton():
     if value > 0:
         details = cur.fetchall()
         return render_template('profile.html', userdata=details)
-    #return render_template('profile.html', use=session['author_id'])
-    
-#Functionality of search button
-@app.route('/static/conferences1.html',methods=['GET','POST'])
+    # return render_template('profile.html', use=session['author_id'])
+
+# Functionality of search button
+
+
+@app.route('/static/conferences1.html', methods=['GET', 'POST'])
 def dummy_con():
-    #print("Conference_Title")
+    print("Conference_Title")
     if request.method == 'POST':
 
         dummyCon = request.form
-        Conference_Title=dummyCon['Conference_Title']
+        Conference_Title = dummyCon['Conference_Title']
+
         print(Conference_Title)
+        print("Conference_Title")
         # 'SELECT * FROM login WHERE AUTHOR_ID=%s AND PASSWORD=%s', (autor_id, password))
         cur = mysql.connection.cursor()
-        value=cur.execute('SELECT * FROM conference WHERE Conference_Title=%s', (Conference_Title,))
-        if value>0:
-            details=cur.fetchall()
+        value = cur.execute(
+            'SELECT * FROM conference WHERE Conference_Title=%s', (Conference_Title,))
+        if value > 0:
+            details = cur.fetchall()
             return render_template('conferences1.html', userDetails=details)
-    return redirect(url_for('static', filename='project.html'))
-        
-    
+        else:
+            return render_template('conferences1.html', userDetails=None)
+    return redirect(url_for('static', filename='profile.html'))
 
-    
-     
-
+# journal details::::::::::::>>>>>>>>>>>>
 
 
+@app.route('/static/journal1.html', methods=['GET', 'POST'])
+def dummy_jou():
+    # print("Conference_Title")
+    if request.method == 'POST':
+
+        dummyJou = request.form
+        Name_of_Journal = dummyJou['Name_of_Journal']
+        # print(Conference_Title)
+        # 'SELECT * FROM login WHERE AUTHOR_ID=%s AND PASSWORD=%s', (autor_id, password))
+        cur = mysql.connection.cursor()
+        value = cur.execute(
+            'SELECT * FROM journal WHERE Name_of_Journal=%s', (Name_of_Journal,))
+        if value > 0:
+            details = cur.fetchall()
+            return render_template('journal1.html', userDetails=details)
+        else:
+            return render_template('journal1.html', userDetails=None)
+    return redirect(url_for('static', filename='profile.html'))
 
 # for passing parameters from the url
-@ app.route('/users')
+
+
+@app.route('/users')
 def users():
     cur = mysql.connection.cursor()
     value = cur.execute("select * from authordetails")
     if value > 0:
         deatails = cur.fetchall()
         return render_template('user.html', userDetails=deatails)
+# Functionality of search button for book
 
+
+@app.route('/static/viewBook1.html', methods=['GET', 'POST'])
+def view_book():
+    # print("Conference_Title")
+    if request.method == 'POST':
+
+        viewBook = request.form
+        paper_title = viewBook['paper_title']
+        # print(Conference_Title)
+        # 'SELECT * FROM login WHERE AUTHOR_ID=%s AND PASSWORD=%s', (autor_id, password))
+        cur = mysql.connection.cursor()
+        value = cur.execute(
+            'SELECT * FROM book_chapter1 WHERE paper_title=%s', (paper_title,))
+        if value > 0:
+            details = cur.fetchall()
+            return render_template('viewBook1.html', userDetails=details)
+    return redirect(url_for('static', filename='loginClick.html'))
+
+
+# add book
+@app.route('/static/addBook.html', methods=['GET', 'POST'])
+def addBook():
+    if request.method == 'POST':
+        addBook = request.form
+        Author_Name = addBook["Author_Name"]
+        Title_Proceeding = addBook["Title_Proceeding"]
+        paper_title = addBook["paper_title"]
+        journal_name = addBook["journal_name"]
+        conf_date = addBook["conf_date"]
+        page_no = addBook["page_no"]
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO book_chapter1 (Author_Name,Title_Proceeding,paper_title,journal_name,conf_date,page_no) VALUES(%s,%s,%s,%s,%s,%s)",
+                    (Author_Name, Title_Proceeding, paper_title, journal_name, conf_date, page_no))
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('static', filename='loginClick.html'))
+        # return redirect ('{{url_for('static',filename = 'project.html')}}')
+
+    # print("hiiiiiiiiiiiiiiii")
+    return render_template('addBook.html')
+
+
+# view book
+@app.route('/static/viewBook.html', methods=['Get', 'POST'])
+def viewBook():
+    cur = mysql.connection.cursor()
+    value = cur.execute(
+        'Select * FROM book_chapter1'
+    )
+    if value > 0:
+        details3 = cur.fetchall()
+    return render_template('viewBook.html', userdata2=details3)
 
 
 if(__name__ == "__main__"):

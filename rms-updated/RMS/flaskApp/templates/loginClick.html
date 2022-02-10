@@ -13,7 +13,7 @@
             background-color: #051414;
             height: 100%;
             width: 100%;
-            
+
         }
 
         #navbar1 {
@@ -29,9 +29,9 @@
         }
 
         #navbar1::before {
-            
+
             /* background-color: black; */
-            
+
             top: 0px;
             padding: 30px;
             bottom: 0px;
@@ -58,8 +58,8 @@
             color: black;
             background-color: white;
         }
-        
-        
+
+
         a {
             color: white;
             padding: 3px 22px;
@@ -76,18 +76,25 @@
             font-size: 20px;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
-        .nav-link{
+
+        .nav-link {
             color: white;
-            
+
             font-size: 25px;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
-        .nav-link a:hover{
+
+        .nav-link a:hover {
             color: black;
             background-color: white;
         }
-        #final{
+
+        #final {
             padding-left: 75px;
+        }
+
+        #five {
+            padding-left: 7%;
         }
     </style>
 </head>
@@ -105,12 +112,14 @@
     </nav>
 
     <nav id="navbar1">
-    <a class="nav-link" href="{{ url_for('static', filename='conferences.html') }}">Add Your Conference</a>
-    <a class="nav-link" href="{{ url_for('static', filename='viewCon.html') }}">View Conferences</a><br>
-    <a class="nav-link" href="{{ url_for('static', filename='journal.html') }}">Add Your Journal</a>
-    <a class="nav-link" id="final" href="{{ url_for('static', filename='viewJou.html') }}">View Journal</a>
+        <a class="nav-link" href="{{ url_for('static', filename='conferences.html') }}">Add Your Conference</a>
+        <a class="nav-link" href="{{ url_for('static', filename='viewCon.html') }}">View Conferences</a><br>
+        <a class="nav-link" href="{{ url_for('static', filename='journal.html') }}">Add Your Journal</a>
+        <a class="nav-link" id="final" href="{{ url_for('static', filename='viewJou.html') }}">View Journal</a><br>
+        <a class="nav-link" href="{{ url_for('static', filename='addBook.html') }}">Add Book Chapter</a>
+        <a class="nav-link" id="five" href="{{ url_for('static', filename='viewBook.html') }}">View Book Chapter</a>
     </nav>
-    
+
 
 </body>
 

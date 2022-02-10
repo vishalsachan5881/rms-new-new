@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #051414;
+        }
+
+        h1 {
+            padding-top: 3%;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        tr {
+            color: #0b0c0c;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+        }
+
+        .table {
+
+            padding-top: 75px;
+            /* padding-left: 36.6%; */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CONFERENCE DETAILS</h1>
+    {% if userDetails is none %}
+    <script>
+        alert("NO RECORD FOUND!!!");
+
+        window.onbeforeunload = function () {
+            return "Do you want to leave this page?";
+        };
+
+    </script>
+    {% else %}
+    <div class="table">
+        <table class="table table-striped">
+            <tr>
+                <th>Citation</th>
+                <th>Author_ID</th>
+                <th>Name_of_Journal</th>
+                <!-- <th>Name_of_Journal</th> -->
+                <th>Date</th>
+                <th>Publisher</th>
+                <th>Volume</th>
+                <th>Year</th>
+            </tr>
+            {% for value in userDetails %}
+
+            <tr>
+                <td>{{value[0]}}</td>
+                <td>{{value[1]}}</td>
+                <td>{{value[2]}}</td>
+                <td>{{value[3]}}</td>
+                <td>{{value[4]}}</td>
+                <td>{{value[5]}}</td>
+                <td>{{value[6]}}</td>
+                <!-- <td>{{value[7]}}</td> -->
+                <!-- <td>{{value[4]}}</td> -->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+</body>
+
+</html>

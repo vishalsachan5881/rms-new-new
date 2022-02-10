@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/flaskApp/templates/login.css">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #051414;
+            z-index: -1;
+        }
+
+        h1 {
+            padding-top: 3%;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        tr {
+            color: #0b0c0c;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+        }
+
+        .table {
+
+            padding-top: 75px;
+            /* padding-left: 36.6%; */
+        }
+
+        .form-inline {
+            padding-left: 43%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Book Chapter</h1>
+    <br>
+    <br>
+    <form class="form-inline" method="POST" action="{{url_for('static',filename='viewBook1.html')}}">
+        <input class="form-control mr-sm-2" name="paper_title" type="search" placeholder="Search by Paper title"
+            aria-label="Search">
+        <a href="{{url_for('static',filename='viewBook1.html')}}"><button class="btn btn-outline-success my-2 my-sm-0"
+                type="submit">Search m ,kl</button></a>
+    </form>
+
+    <div class="table">
+        <table class="table table-striped">
+            <tr>
+                <th>author_name</th>
+                <th>title_proceeding</th>
+                <th>paper_title</th>
+                <th>Name_of_Journal</th>
+                <th>journal_name</th>
+                <th>conf_date</th>
+                <th>page_no</th>
+                <!-- h>Year</th> -->
+            </tr>
+            {% for value in userdata2 %}
+            <tr>
+                <td> {{value[0]}}</td>
+                <td>{{value[1]}}</td>
+                <td>{{value[2]}}</td>
+                <td>{{value[3]}}</td>
+                <td>{{value[4]}}</td>
+                <td>{{value[5]}}</td>
+
+
+                <!-- <td>{{value[4]}}</td> -->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>

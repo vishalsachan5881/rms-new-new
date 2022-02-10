@@ -9,26 +9,32 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='login.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
-        body{
+        body {
             background-color: #051414;
             z-index: -1;
         }
-        h1{
+
+        h1 {
             padding-top: 3%;
             color: rgb(255, 255, 255);
             text-align: center;
-            font-family:'Times New Roman', Times, serif;
+            font-family: 'Times New Roman', Times, serif;
         }
-        tr{
-            color: #d9e4dd;
-            font-family:Arial, Helvetica, sans-serif;
+
+        tr {
+            color: #0b0c0c;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
         }
-        .table{
-            
-            color: aquamarine;
-            padding-top: 13%;
-            padding-left: 39.6%;
+
+        .table {
+
+            padding-top: 75px;
+            /* padding-left: 36.6%; */
+        }
+
+        .form-inline {
+            padding-left: 43%;
         }
     </style>
     <title>Document</title>
@@ -36,23 +42,43 @@
 
 <body>
     <h1>Journal</h1>
-<div class="table">
-    <table border="1">
-    {% for value in userdata2 %}
-    <tr>
-        <td> {{value[0]}}</td>
-        <td>{{value[1]}}</td>
-        <td>{{value[2]}}</td>
-        <td>{{value[3]}}</td>
-        <td>{{value[4]}}</td>
-        <td>{{value[5]}}</td>
-        <td>{{value[6]}}</td>
-        
-        <!-- <td>{{value[4]}}</td> -->
-    </tr>
-    {% endfor %}
-</table>
-</div>
+    <br>
+    <br>
+    <form class="form-inline" method="POST" action="{{url_for('static',filename='journal1.html')}}">
+        <input class="form-control mr-sm-2" name="Name_of_Journal" type="search" placeholder="Search by journal title"
+            aria-label="Search">
+        <a href="{{url_for('static',filename='journal1.html')}}"><button class="btn btn-outline-success my-2 my-sm-0"
+                type="submit">Search</button></a>
+    </form>
+
+    <div class="table">
+        <table class="table table-striped">
+            <tr>
+                <th>Citation</th>
+                <th>Author_ID</th>
+                <th>Name_of_Journal</th>
+                <!-- <th>Name_of_Journal</th> -->
+                <th>Date</th>
+                <th>Publisher</th>
+                <th>Volume</th>
+                <th>Year</th>
+            </tr>
+            {% for value in userdata2 %}
+
+            <tr>
+                <td>{{value[0]}}</td>
+                <td>{{value[1]}}</td>
+                <td>{{value[2]}}</td>
+                <td>{{value[3]}}</td>
+                <td>{{value[4]}}</td>
+                <td>{{value[5]}}</td>
+                <td>{{value[6]}}</td>
+
+                <!-- <td>{{value[4]}}</td> -->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 
 </html>

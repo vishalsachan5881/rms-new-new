@@ -9,24 +9,31 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='login.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
-        body{
+        body {
             background-color: #051414;
         }
-        h1{
+
+        h1 {
             padding-top: 3%;
             color: rgb(255, 255, 255);
             text-align: center;
-            font-family:'Times New Roman', Times, serif;
+            font-family: 'Times New Roman', Times, serif;
         }
-        tr{
-            color: #d9e4dd;
+
+        tr {
+            color: #0b0c0c;
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
         }
-        .table{
-            
-            padding-top: 13%;
-            padding-left: 36.6%;
+
+        .table {
+
+            padding-top: 75px;
+            /* padding-left: 36.6%; */
+        }
+
+        .form-inline {
+            padding-left: 43%;
         }
     </style>
     <title>Document</title>
@@ -37,29 +44,42 @@
 
     <br>
     <br>
-    <form class="form-inline" method="POST">
-        <input class="form-control mr-sm-2" name="Conference_Title" type="search" placeholder="Search by conference title" aria-label="Search">
-        <input class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="{{url_for('static',filename='conferences1.html')}}">Search</a></input>
+    <form class="form-inline" method="POST" action="{{url_for('static',filename='conferences1.html')}}">
+        <input class="form-control mr-sm-2" name="Conference_Title" type="search"
+            placeholder="Search by conference title" aria-label="Search">
+        <a href="{{url_for('static',filename='conferences1.html')}}"><button
+                class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></a>
     </form>
 
 
-<div class="table">
-    <table border="1">
-    {% for value in userdata1 %}
-    <tr>
-        <td> {{value[0]}}</td>
-        <td>{{value[1]}}</td>
-        <td>{{value[2]}}</td>
-        <td>{{value[3]}}</td>
-        <td>{{value[4]}}</td>
-        <td>{{value[5]}}</td>
-        <td>{{value[6]}}</td>
-        <td>{{value[7]}}</td>
-        <!-- <td>{{value[4]}}</td> -->
-    </tr>
-    {% endfor %}
-</table>
-</div>
-</body>
+    <div class="table">
+        <table class="table table-striped">
+            <tr>
+                <th>Citation</th>
+                <th>Author_ID</th>
+                <th>Conference_Title</th>
+                <th>Name_of_Journal</th>
+                <th>Conference_ID</th>
+                <th>Date</th>
+                <th>Publisher</th>
+                <th>Page_No</th>
+                <th>Year</th>
+            </tr>
+            {% for value in userdata1 %}
 
-</html>
+            <tr>
+                <td>{{value[0]}}</td>
+                <td>{{value[1]}}</td>
+                <td>{{value[2]}}</td>
+                <td>{{value[3]}}</td>
+                <td>{{value[4]}}</td>
+                <td>{{value[5]}}</td>
+                <td>{{value[6]}}</td>
+                <td>{{value[7]}}</td>
+                <td>{{value[8]}}</td>
+                <!-- <td>{{value[4]}}</td> -->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
